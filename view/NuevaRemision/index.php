@@ -47,6 +47,7 @@
 						<fieldset class="form-group">
 							<label class="form-label semibold" for="remi_caja">Caja Interna</label>
 							<input type="text" class="form-control" id="remi_caja" name="remi_caja" placeholder="Ingrese Caja interna">
+							<div id="caja-error" class="alert alert-danger" style="display: none;">El código de caja ya existe.</div>
 						</fieldset>
 					</div>
 

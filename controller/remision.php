@@ -131,7 +131,6 @@
             $data= Array();
             foreach($datos as $row){
                 $sub_array = array();
-                $sub_array[] = $row["remi_id"];
                 $sub_array[] = $row["remi_caja"];
                 $sub_array[] = $row["sucu_nom"];
 

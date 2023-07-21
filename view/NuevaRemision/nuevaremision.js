@@ -1,10 +1,3 @@
-
-function init(){
-    $("#ticket_form").on("submit",function(e){
-        guardaryeditar(e);
-    });
-}
-
 $(document).ready(function() {
     /* TODO: Inicializar SummerNote */
     $('#remi_descrip').summernote({
@@ -34,10 +27,41 @@ $(document).ready(function() {
         ]
     });
 
+    // Manejador de evento para el formulario
+    $("#ticket_form").on("submit", function (e) {
+        // Evitar el envío del formulario por defecto
+        e.preventDefault();
+
+        // Obtener el valor del campo "Caja Interna"
+        var remi_caja = $("#remi_caja").val();
+
+        // Realizar la validación del código de caja utilizando AJAX
+        $.ajax({
+            type: "POST",
+            url: "../../controller/remision.php?op=validar", // Reemplaza esto con la ruta correcta a tu archivo PHP para buscar la remisión por código de caja
+            data: {
+                remi_caja: remi_caja
+            },
+            success: function (response) {
+                if (response === "1") {
+                    // Si la respuesta es "1", significa que el código de caja ya existe
+                    $("#caja-error").show(); // Mostrar la alerta de error
+                } else {
+                    // Si la respuesta no es "1", el código de caja no existe, así que llamamos a la función para guardar y editar
+                    $("#caja-error").hide(); // Ocultar la alerta de error (en caso de que esté visible)
+                    guardaryeditar(); // Llamada a la función para guardar y editar el formulario
+                }
+            },
+            error: function () {
+                // Manejar el error en caso de que falle la solicitud AJAX
+                alert("Error al comprobar la existencia del código de caja.");
+            }
+        });
+    });
+
 });
 
-function guardaryeditar(e){
-    e.preventDefault();
+function guardaryeditar(){
     /* TODO: Array del form ticket */
     var formData = new FormData($("#ticket_form")[0]);
     /* TODO: validamos si los campos tienen informacion antes de guardar */
@@ -81,5 +105,6 @@ function guardaryeditar(e){
         });
     }
 }
+
 
 init();

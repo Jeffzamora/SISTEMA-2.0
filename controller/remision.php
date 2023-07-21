@@ -235,7 +235,7 @@
 
         /* TODO: Listado de Remisiones,formato json para Datatable JS, filtro avanzado*/
         case "listar_filtro":
-            $datos=$ticket->filtrar_ticket($_POST["remi_id"],$_POST["sucu_id"],$_POST["remi_estado"]);
+            $datos=$remision->filtrar_remision($_POST["remi_id"],$_POST["sucu_id"],$_POST["remi_estado"]);
             $data= Array();
             foreach($datos as $row){
                 $sub_array = array();

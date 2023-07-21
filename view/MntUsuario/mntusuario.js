@@ -25,7 +25,7 @@ function guardaryeditar(e){
 
             /* TODO:Mensaje de Confirmacion */
             swal({
-                title: "HelpDesk!",
+                title: "Usuario Agregado!",
                 text: "Completado.",
                 type: "success",
                 confirmButtonClass: "btn-success"
@@ -35,6 +35,10 @@ function guardaryeditar(e){
 }
 
 $(document).ready(function(){
+
+    $.post("../../controller/sucursal.php?op=combo",function(data, status){
+        $('#sucu_id').html(data);
+    });
 
     $('#rol_id').select2({
         dropdownParent: $('#modalmantenimiento')
@@ -106,6 +110,7 @@ function editar(usu_id){
         $('#usu_correo').val(data.usu_correo);
         $('#usu_pass').val(data.usu_pass);
         $('#rol_id').val(data.rol_id).trigger('change');
+        $('#sucu_id').val(data.sucu_id).trigger('change');
         $('#usu_telf').val(data.usu_telf);
     }); 
 
@@ -116,7 +121,7 @@ function editar(usu_id){
 /* TODO: Cambiar estado a eliminado en caso de confirmar mensaje */
 function eliminar(usu_id){
     swal({
-        title: "HelpDesk",
+        title: "Usuario eliminando",
         text: "Esta seguro de Eliminar el registro?",
         type: "error",
         showCancelButton: true,
@@ -134,7 +139,7 @@ function eliminar(usu_id){
             $('#usuario_data').DataTable().ajax.reload();	
 
             swal({
-                title: "HelpDesk!",
+                title: "Usuario Eliminado",
                 text: "Registro Eliminado.",
                 type: "success",
                 confirmButtonClass: "btn-success"

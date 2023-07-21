@@ -17,6 +17,11 @@ $(document).ready(function(){
             $('#lbltotalabierto').html(data.TOTAL);
         });
 
+        $.post("../../controller/usuario.php?op=totalprocesado", {usu_id:usu_id}, function (data) {
+            data = JSON.parse(data);
+            $('#lbltotalprocesado').html(data.TOTAL);
+        });
+
         $.post("../../controller/usuario.php?op=totalcerrado", {usu_id:usu_id}, function (data) {
             data = JSON.parse(data);
             $('#lbltotalcerrado').html(data.TOTAL);
@@ -36,22 +41,27 @@ $(document).ready(function(){
         }); 
 
     }else{
-        $.post("../../controller/ticket.php?op=total",function (data) {
+        $.post("../../controller/remision.php?op=total",function (data) {
             data = JSON.parse(data);
             $('#lbltotal').html(data.TOTAL);
         });
 
-        $.post("../../controller/ticket.php?op=totalabierto",function (data) {
+        $.post("../../controller/remision.php?op=totalabierto",function (data) {
             data = JSON.parse(data);
             $('#lbltotalabierto').html(data.TOTAL);
         });
 
-        $.post("../../controller/ticket.php?op=totalcerrado", function (data) {
+        $.post("../../controller/remision.php?op=totalprocesado",function (data) {
+            data = JSON.parse(data);
+            $('#lbltotalprocesado').html(data.TOTAL);
+        });
+
+        $.post("../../controller/remision.php?op=totalcerrado", function (data) {
             data = JSON.parse(data);
             $('#lbltotalcerrado').html(data.TOTAL);
         });
 
-        $.post("../../controller/ticket.php?op=grafico",function (data) {
+        $.post("../../controller/remision.php?op=grafico",function (data) {
             data = JSON.parse(data);
 
             new Morris.Bar({
@@ -59,7 +69,8 @@ $(document).ready(function(){
                 data: data,
                 xkey: 'nom',
                 ykeys: ['total'],
-                labels: ['Value']
+                labels: ['Value'],
+                barrColors: ["#1AB244"], 
             });
         });
 

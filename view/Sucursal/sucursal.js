@@ -1,29 +1,27 @@
+var tabla;
 
 $(document).ready(function(){
-    /* TODO: Obtener ID del usuario que inicio session */
-    var usu_id = $('#user_idx').val();
-
-    /* TODO: Listado de registros */
-    tabla=$('#notificacion_data').dataTable({
+    /* TODO: Mostrar listado de registros */
+    tabla=$('#usuario_data').dataTable({
         "aProcessing": true,
         "aServerSide": true,
         dom: 'Bfrtip',
         "searching": true,
         lengthChange: false,
         colReorder: true,
-        buttons: [
+        buttons: [		          
                 'copyHtml5',
                 'excelHtml5',
                 'csvHtml5',
-                'pdfHtml5'
+                'pdfHtml5',
+                'print'
                 ],
         "ajax":{
-            url: '../../controller/notificacion.php?op=listar',
+            url: '../../controller/sucursal.php?op=listar',
             type : "post",
-            dataType : "json",
-            data: {usu_id : usu_id},
+            dataType : "json",						
             error: function(e){
-                console.log(e.responseText);
+                console.log(e.responseText);	
             }
         },
         "bDestroy": true,
@@ -58,7 +56,11 @@ $(document).ready(function(){
     }).DataTable(); 
 });
 
-/* TODO: Funcion para abrir detalle de  Remision en una nueva ventana */
-function ver(remi_id){
-    window.open('../view/DetalleTicket/?ID='+ remi_id +'');
-}
+/* TODO: Limpiar Inputs */
+$(document).on("click","#btnnuevo", function(){
+    $('#sucu_id').val('');
+    $('#mdltitulo').html('Nuevo Registro');
+    $('#usuario_form')[0].reset();
+    /* TODO:Mostrar Modal */
+    $('#modalmantenimiento').modal('show');
+});

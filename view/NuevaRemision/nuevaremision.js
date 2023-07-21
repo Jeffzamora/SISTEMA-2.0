@@ -8,7 +8,7 @@ function init(){
 $(document).ready(function() {
     /* TODO: Inicializar SummerNote */
     $('#tick_descrip').summernote({
-        height: 150,
+        height: 100,
         lang: "es-ES",
         popover: {
             image: [],
@@ -34,25 +34,6 @@ $(document).ready(function() {
         ]
     });
 
-    /* TODO: Llenar Combo categoria */
-    $.post("../../controller/categoria.php?op=combo",function(data, status){
-        $('#cat_id').html(data);
-    });
-
-    $("#cat_id").change(function(){
-        cat_id = $(this).val();
-        /* TODO: llenar Combo subcategoria segun cat_id */
-        $.post("../../controller/subcategoria.php?op=combo",{cat_id : cat_id},function(data, status){
-            console.log(data);
-            $('#cats_id').html(data);
-        });
-    });
-
-    /* TODO: Llenar combo Prioridad  */
-    $.post("../../controller/prioridad.php?op=combo",function(data, status){
-        $('#prio_id').html(data);
-    });
-
 });
 
 function guardaryeditar(e){
@@ -60,7 +41,7 @@ function guardaryeditar(e){
     /* TODO: Array del form ticket */
     var formData = new FormData($("#ticket_form")[0]);
     /* TODO: validamos si los campos tienen informacion antes de guardar */
-    if ($('#tick_descrip').summernote('isEmpty') || $('#tick_titulo').val()=='' || $('#cats_id').val() == 0 || $('#cat_id').val() == 0 || $('#prio_id').val() == 0){
+    if ($('#remi_descrip').summernote('isEmpty') ||  $('#remi_exp').val() == 0 || $('#remi_caja').val() == 0){
         swal("Advertencia!", "Campos Vacios", "warning");
     }else{
         var totalfiles = $('#fileElem').val().length;
@@ -68,9 +49,9 @@ function guardaryeditar(e){
             formData.append("files[]", $('#fileElem')[0].files[i]);
         }
 
-        /* TODO: Guardar Ticket */
+        /* TODO: Guardar Remision */
         $.ajax({
-            url: "../../controller/ticket.php?op=insert",
+            url: "../../controller/remision.php?op=insert",
             type: "POST",
             data: formData,
             contentType: false,
@@ -78,21 +59,22 @@ function guardaryeditar(e){
             success: function(data){
                 console.log(data);
                 data = JSON.parse(data);
-                console.log(data[0].tick_id);
+                console.log(data[0].remi_id);
 
-                /* TODO: Envio de alerta Email de ticket Abierto */
-                $.post("../../controller/email.php?op=ticket_abierto", {tick_id : data[0].tick_id}, function (data) {
-
-                });
-
-                /* TODO: Envio de alerta Whaspp de ticket Abierto */
-                $.post("../../controller/whatsapp.php?op=w_ticket_abierto", {tick_id : data[0].tick_id}, function (data) {
+                /* TODO: Envio de alerta Email de Remision Abierto */
+                $.post("../../controller/email.php?op=remision_abierto", {remi_id : data[0].remi_id}, function (data) {
 
                 });
 
                 /* TODO: Limpiar campos */
-                $('#tick_titulo').val('');
-                $('#tick_descrip').summernote('reset');
+                $('#remi_codigo').val('');
+                $('#remi_caja').val('');
+                $('#remi_exp').val('');
+                $('#remi_cancel').val('');
+                $('#remi_desde').val('');
+                $('#remi_hasta').val('');
+                $('#fileElem').val('');
+                $('#remi_descrip').summernote('reset');
                 /* TODO: Alerta de Confirmacion */
                 swal("Correcto!", "Registrado Correctamente", "success");
             }

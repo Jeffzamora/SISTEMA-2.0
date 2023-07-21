@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <?php require_once("../MainHead/head.php");?>
-	<title>AnderCode</>:: Notificación</title>
+	<title>Logicsa:: Notificación</title>
 </head>
 <body class="with-side-menu">
 
@@ -24,7 +24,7 @@
 						<div class="tbl-cell">
 							<h3>Notificación</h3>
 							<ol class="breadcrumb breadcrumb-simple">
-								<li><a href="#">Home</a></li>
+								<li><a href="../Home/">Home</a></li>
 								<li class="active">Notificación</li>
 							</ol>
 						</div>

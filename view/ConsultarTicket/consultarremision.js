@@ -1,6 +1,8 @@
 var tabla;
 var usu_id =  $('#user_idx').val();
 var rol_id =  $('#rol_idx').val();
+var sucu_id =  $('#sucu_idx').val();
+
 
 function init(){
     $("#ticket_form").on("submit",function(e){
@@ -10,14 +12,9 @@ function init(){
 
 $(document).ready(function(){
 
-    /* TODO: Llenar Combo Categoria */
-    $.post("../../controller/categoria.php?op=combo",function(data, status){
-        $('#cat_id').html(data);
-    });
-
-    /* TODO: llenar Combo Prioridad */
-    $.post("../../controller/prioridad.php?op=combo",function(data, status){
-        $('#prio_id').html(data);
+    /* TODO: Llenar Combo Sucursal */
+    $.post("../../controller/sucursal.php?op=combo",function(data, status){
+        $('#sucu_id').html(data);
     });
 
     /* TODO:LLenar Combo usuario asignar */
@@ -43,10 +40,10 @@ $(document).ready(function(){
                     'pdfHtml5'
                     ],
             "ajax":{
-                url: '../../controller/ticket.php?op=listar_x_usu',
+                url: '../../controller/remision.php?op=listar_x_sucu',
                 type : "post",
                 dataType : "json",
-                data:{ usu_id : usu_id },
+                data:data,
                 error: function(e){
                     console.log(e.responseText);
                 }
@@ -83,25 +80,25 @@ $(document).ready(function(){
             }     
         }).DataTable();
     }else{
-        /* TODO: Filtro avanzado en caso de ser soporte */
-        var tick_titulo = $('#tick_titulo').val();
-        var cat_id = $('#cat_id').val();
-        var prio_id = $('#prio_id').val();
+        /* TODO: Filtro avanzado en caso de ser Logicsa */
+        var remi_id = $('#remi_id').val();
+        var sucu_id = $('#sucu_id').val();
+        var remi_estado = $('#remi_estado').val();
 
-        listardatatable(tick_titulo,cat_id,prio_id);
+        listardatatable(remi_id,sucu_id,remi_estado);
     }
 });
 
-/* TODO: Link para poder ver el detalle de ticket en otra ventana */
-function ver(tick_id){
-    window.open('http://localhost:90/PERSONAL_HelpDesk/view/DetalleTicket/?ID='+ tick_id +'');
+/* TODO: Link para poder ver el detalle de Remision en otra ventana */
+function ver(remi_id){
+    window.open('../../view/DetalleTicket/?ID='+ remi_id +'');
 }
 
 /* TODO: Mostrar datos antes de asignar */
-function asignar(tick_id){
-    $.post("../../controller/ticket.php?op=mostrar", {tick_id : tick_id}, function (data) {
+function asignar(remi_id){
+    $.post("../../controller/remision.php?op=mostrar", {remi_id : remi_id}, function (data) {
         data = JSON.parse(data);
-        $('#tick_id').val(data.tick_id);
+        $('#remi_id').val(data.remi_id);
 
         $('#mdltitulo').html('Asignar Agente');
         $("#modalasignar").modal('show');
@@ -113,23 +110,17 @@ function guardar(e){
     e.preventDefault();
 	var formData = new FormData($("#ticket_form")[0]);
     $.ajax({
-        url: "../../controller/ticket.php?op=asignar",
+        url: "../../controller/remision.php?op=asignar",
         type: "POST",
         data: formData,
         contentType: false,
         processData: false,
         success: function(datos){
-            var tick_id = $('#tick_id').val();
+            var remi_id = $('#remi_id').val();
             /* TODO: enviar Email de alerta de asignacion */
-            $.post("../../controller/email.php?op=ticket_asignado", {tick_id : tick_id}, function (data) {
+            $.post("../../controller/email.php?op=remision_asignado", {remi_id : remi_id}, function (data) {
 
             });
-
-            /* TODO: enviar Whaspp de alerta de asignacion */
-            $.post("../../controller/whatsapp.php?op=w_ticket_asignado", {tick_id : tick_id}, function (data) {
-
-            });
-
             /* TODO: Alerta de confirmacion */
             swal("Correcto!", "Asignado Correctamente", "success");
 
@@ -141,11 +132,11 @@ function guardar(e){
     });
 }
 
-/* TODO:Reabrir ticket */
-function CambiarEstado(tick_id){
+/* TODO:Reabrir Remision */
+function CambiarEstado(remi_id){
     swal({
-        title: "HelpDesk",
-        text: "Esta seguro de Reabrir el Ticket?",
+        title: "Remision",
+        text: "Esta seguro de Reabrir el caso?",
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-warning",
@@ -156,7 +147,7 @@ function CambiarEstado(tick_id){
     function(isConfirm) {
         if (isConfirm) {
             /* TODO: Enviar actualizacion de estado */
-            $.post("../../controller/ticket.php?op=reabrir", {tick_id : tick_id,usu_id : usu_id}, function (data) {
+            $.post("../../controller/remision.php?op=reabrir", {remi_id : remi_id,usu_id : usu_id}, function (data) {
 
             });
 
@@ -165,7 +156,7 @@ function CambiarEstado(tick_id){
 
             /* TODO: Mensaje de Confirmacion */
             swal({
-                title: "HelpDesk!",
+                title: "Remision!",
                 text: "Ticket Abierto.",
                 type: "success",
                 confirmButtonClass: "btn-success"
@@ -178,11 +169,11 @@ function CambiarEstado(tick_id){
 $(document).on("click","#btnfiltrar", function(){
     limpiar();
 
-    var tick_titulo = $('#tick_titulo').val();
-    var cat_id = $('#cat_id').val();
-    var prio_id = $('#prio_id').val();
+    var remi_id = $('#remi_id').val();
+    var sucu_id = $('#sucu_id').val();
+    var remi_estado = $('#remi_estado').val();
 
-    listardatatable(tick_titulo,cat_id,prio_id);
+    listardatatable(remi_id,sucu_id,remi_estado);
 
 });
 
@@ -190,15 +181,15 @@ $(document).on("click","#btnfiltrar", function(){
 $(document).on("click","#btntodo", function(){
     limpiar();
 
-    $('#tick_titulo').val('');
-    $('#cat_id').val('').trigger('change');
-    $('#prio_id').val('').trigger('change');
+    $('#remi_id').val('');
+    $('#sucu_id').val('').trigger('change');
+    $('#remi_estado').val('').trigger('change');
 
     listardatatable('','','');
 });
 
 /* TODO: Listar datatable con filtro avanzado */
-function listardatatable(tick_titulo,cat_id,prio_id){
+function listardatatable(remi_id,sucu_id,remi_estado){
     tabla=$('#ticket_data').dataTable({
         "aProcessing": true,
         "aServerSide": true,
@@ -213,10 +204,10 @@ function listardatatable(tick_titulo,cat_id,prio_id){
                 'pdfHtml5'
                 ],
         "ajax":{
-            url: '../../controller/ticket.php?op=listar_filtro',
+            url: '../../controller/remision.php?op=listar_filtro',
             type : "post",
             dataType : "json",
-            data:{ tick_titulo:tick_titulo,cat_id:cat_id,prio_id:prio_id},
+            data:{ remi_id:remi_id,sucu_id:sucu_id,remi_estado:remi_estado},
             error: function(e){
                 console.log(e.responseText);
             }
@@ -259,15 +250,14 @@ function limpiar(){
         "<table id='ticket_data' class='table table-bordered table-striped table-vcenter js-dataTable-full'>"+
             "<thead>"+
                 "<tr>"+
-                    "<th style='width: 5%;'>Nro.Ticket</th>"+
-                    "<th style='width: 15%;'>Categoria</th>"+
-                    "<th class='d-none d-sm-table-cell' style='width: 30%;'>Titulo</th>"+
-                    "<th class='d-none d-sm-table-cell' style='width: 5%;'>Prioridad</th>"+
+                    "<th style='width: 5%;'>Nro.Remision</th>"+
+                    "<th style='width: 15%;'>Sucursal</th>"+
+                    "<th class='d-none d-sm-table-cell' style='width: 15%;'>Tipo</th>"+
                     "<th class='d-none d-sm-table-cell' style='width: 5%;'>Estado</th>"+
                     "<th class='d-none d-sm-table-cell' style='width: 10%;'>Fecha Creación</th>"+
                     "<th class='d-none d-sm-table-cell' style='width: 10%;'>Fecha Asignación</th>"+
                     "<th class='d-none d-sm-table-cell' style='width: 10%;'>Fecha Cierre</th>"+
-                    "<th class='d-none d-sm-table-cell' style='width: 10%;'>Soporte</th>"+
+                    "<th class='d-none d-sm-table-cell' style='width: 10%;'>Tecnico</th>"+
                     "<th class='text-center' style='width: 5%;'></th>"+
                 "</tr>"+
             "</thead>"+

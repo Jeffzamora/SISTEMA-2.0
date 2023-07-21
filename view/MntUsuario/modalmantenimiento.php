@@ -34,8 +34,15 @@
                     <div class="form-group">
                         <label class="form-label" for="rol_id">Rol</label>
                         <select class="select2" id="rol_id" name="rol_id">
-                            <option value="1">Usuario</option>
-                            <option value="2">Soporte</option>
+                            <option value="1">Fama</option>
+                            <option value="2">Tecnico-Logicsa</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="sucu_id">Sucursal</label>
+                        <select class="select2" id="sucu_id" name="sucu_id">
+
                         </select>
                     </div>
 
@@ -47,7 +54,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" name="action" id="#" value="add" class="btn btn-rounded btn-primary">Guardar</button>
+                    <button type="submit" name="action" id="#" value="add" class="btn btn-rounded btn-success">Guardar</button>
                 </div>
             </form>
         </div>

@@ -6,7 +6,7 @@
 <html>
     <?php require_once("../MainHead/head.php");?>
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-	<title>AnderCode</>::Home</title>
+	<title>Logicsa::Home</title>
 </head>
 <body class="with-side-menu">
 
@@ -26,7 +26,7 @@
 	                        <article class="statistic-box green">
 	                            <div>
 	                                <div class="number" id="lbltotal"></div>
-	                                <div class="caption"><div>Total de Tickets</div></div>
+	                                <div class="caption"><div>Total de Remisiones</div></div>
 	                            </div>
 	                        </article>
 	                    </div>
@@ -34,7 +34,15 @@
 	                        <article class="statistic-box yellow">
 	                            <div>
 	                                <div class="number" id="lbltotalabierto"></div>
-	                                <div class="caption"><div>Total de Tickets Abiertos</div></div>
+	                                <div class="caption"><div>Total de Remisiones Abierta</div></div>
+	                            </div>
+	                        </article>
+	                    </div>
+						<div class="col-sm-4">
+	                        <article class="statistic-box gray">
+	                            <div>
+	                                <div class="number" id="lbltotalprocesado"></div>
+	                                <div class="caption"><div>Total de Remisiones re-Abierta</div></div>
 	                            </div>
 	                        </article>
 	                    </div>
@@ -42,7 +50,7 @@
 	                        <article class="statistic-box red">
 	                            <div>
 	                                <div class="number" id="lbltotalcerrado"></div>
-	                                <div class="caption"><div>Total de Tickets Cerrados</div></div>
+	                                <div class="caption"><div>Total de Remisiones Cerrados</div></div>
 	                            </div>
 	                        </article>
 	                    </div>

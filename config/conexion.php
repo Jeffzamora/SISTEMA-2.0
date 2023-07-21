@@ -10,8 +10,8 @@
                 // Cadena de conexión a la base de datos
                 $host = "localhost";
                 $dbname = "db_fama";
-                $user = "root";
-                $password = "";
+                $user = "Hemco";
+                $password = "1r8YQuB676!";
                 $dsn = "mysql:host=$host;dbname=$dbname";
 
                 // Conexión a la base de datos

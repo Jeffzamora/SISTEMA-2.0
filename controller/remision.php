@@ -72,7 +72,7 @@
             $remision->update_remision_asignacion($_POST["remi_id"],$_POST["usu_asig"]);
             break;
 
-        /* TODO: Listado de Remisiones segun usuario,formato json para Datatable JS */
+        /* TODO: Listado de Remisiones segun Sucursal,formato json para Datatable JS */
         case "listar_x_sucu":
             $datos=$remision->listar_remi_x_sucu();
             $data= Array();
@@ -237,7 +237,7 @@
         /* TODO: Formato HTML para mostrar detalle de Remision con comentarios */
         case "listardetalle":
             /* TODO: Listar todo el detalle segun remi_id */
-            $datos=$remision->listar_remisiondetalle_x_remi($_POST["remi_id"]);
+            $datos=$remision->listar_remisiondetalle_x_remision($_POST["remi_id"]);
             ?>
                 <?php
                     /* TODO: Repetir tantas veces se obtenga de la varible datos$ */

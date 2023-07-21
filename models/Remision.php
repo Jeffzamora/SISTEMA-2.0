@@ -53,6 +53,36 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
+
+        /* TODO: Listar Remision segun Sucursal de usuario antes de enviar a logicsa*/
+        public function listar_remi_x_sucu_0(){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sucu_id= $_SESSION["sucu_id"];
+            $sql="SELECT 
+            tm_remision.remi_id,
+            tm_remision.usu_id,
+            tm_remision.sucu_id,
+            tm_remision.remi_cancel,
+            tm_remision.remi_estado,
+            tm_remision.fech_crea,
+            tm_remision.fech_cierre,
+            tm_remision.usu_asig,
+            tm_remision.fech_asig,
+            tm_usuario.usu_nom,
+            tm_usuario.usu_ape,
+            tm_sucursal.sucu_nom
+            FROM 
+            tm_remision
+            INNER join tm_sucursal on tm_remision.sucu_id = tm_sucursal.sucu_id
+            INNER join tm_usuario on tm_remision.usu_id = tm_usuario.usu_id
+            WHERE
+            tm_remision.est = 0
+            AND tm_remision.sucu_id = '$sucu_id'";
+            $sql=$conectar->prepare($sql);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
         /* TODO: Mostrar Remision segun id de Remision */
         public function listar_remision_x_id($remi_id){
             $conectar= parent::conexion();
@@ -325,6 +355,20 @@
             $conectar= parent::conexion();
             parent::set_names();
             $sql="call filtrar_ticket (?,?,?)";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $remi_id);
+            $sql->bindValue(2, $sucu_id);
+            $sql->bindValue(3, "%".$remi_estado."%");
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+
+        }
+
+        /* TODO: Filtro Avanzado de Remisiones */
+        public function filtrar_remision0($remi_id,$sucu_id,$remi_estado){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="call filtrar_ticket2 (?,?,?)";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $remi_id);
             $sql->bindValue(2, $sucu_id);

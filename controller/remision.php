@@ -126,6 +126,59 @@
             echo json_encode($results);
             break;
 
+        case "listar_x_sucu_0":
+            $datos=$remision->listar_remi_x_sucu_0();
+            $data= Array();
+            foreach($datos as $row){
+                $sub_array = array();
+                $sub_array[] = $row["remi_id"];
+                $sub_array[] = $row["sucu_nom"];
+
+                $sub_array[] = $row["remi_cancel"];
+
+                if ($row["remi_estado"]=="Abierto"){
+                    $sub_array[] = '<span class="label label-pill label-success">Abierto</span>';
+                }elseif  ($row["remi_estado"]=="Procesando"){
+                    $sub_array[] = '<span class="label label-pill label-warning">Procesando</span>';
+                }else{
+                    $sub_array[] = '<span class="label label-pill label-danger">Cerrado</span></a>';
+                }
+
+                $sub_array[] = date("d/m/Y H:i:s", strtotime($row["fech_crea"]));
+
+                if($row["fech_asig"]==null){
+                    $sub_array[] = '<span class="label label-pill label-default">Sin Asignar</span>';
+                }else{
+                    $sub_array[] = date("d/m/Y H:i:s", strtotime($row["fech_asig"]));
+                }
+
+                if($row["fech_cierre"]==null){
+                    $sub_array[] = '<span class="label label-pill label-default">Sin Cerrar</span>';
+                }else{
+                    $sub_array[] = date("d/m/Y H:i:s", strtotime($row["fech_cierre"]));
+                }
+
+                if($row["usu_asig"]==null){
+                    $sub_array[] = '<span class="label label-pill label-warning">Sin Asignar</span>';
+                }else{
+                    $datos1=$usuario->get_usuario_x_id($row["usu_asig"]);
+                    foreach($datos1 as $row1){
+                        $sub_array[] = '<span class="label label-pill label-success">'. $row1["usu_nom"].'</span>';
+                    }
+                }
+
+                $sub_array[] = '<button type="button" onClick="enviar('.$row["remi_id"].');"  id="'.$row["remi_id"].'" class="btn btn-inline btn-success" btn-sm ladda-button"><i class="fa fa-check"></i></button>';
+                $data[] = $sub_array;
+            }
+
+            $results = array(
+                "sEcho"=>1,
+                "iTotalRecords"=>count($data),
+                "iTotalDisplayRecords"=>count($data),
+                "aaData"=>$data);
+            echo json_encode($results);
+            break;
+
         /* TODO: Listado de Remisiones,formato json para Datatable JS */
         case "listar":
             $datos=$remision->listar_remision();
@@ -223,6 +276,59 @@
                 }
 
                 $sub_array[] = '<button type="button" onClick="ver('.$row["remi_id"].');"  id="'.$row["remi_id"].'" class="btn btn-inline btn-primary btn-sm ladda-button"><i class="fa fa-eye"></i></button>';
+                $data[] = $sub_array;
+            }
+
+            $results = array(
+                "sEcho"=>1,
+                "iTotalRecords"=>count($data),
+                "iTotalDisplayRecords"=>count($data),
+                "aaData"=>$data);
+            echo json_encode($results);
+            break;
+
+        case "listar_filtro_0":
+            $datos=$remision->filtrar_remision0($_POST["remi_id"],$_POST["sucu_id"],$_POST["remi_estado"]);
+            $data= Array();
+            foreach($datos as $row){
+                $sub_array = array();
+                $sub_array[] = $row["remi_id"];
+                $sub_array[] = $row["sucu_nom"];
+
+                $sub_array[] = $row["remi_cancel"];
+
+                if ($row["remi_estado"]=="Abierto"){
+                    $sub_array[] = '<span class="label label-pill label-success">Abierto</span>';
+                }elseif  ($row["remi_estado"]=="Procesando"){
+                    $sub_array[] = '<span class="label label-pill label-warning">Procesando</span>';
+                }else{
+                    $sub_array[] = '<span class="label label-pill label-danger">Cerrado</span></a>';
+                }
+
+                $sub_array[] = date("d/m/Y H:i:s", strtotime($row["fech_crea"]));
+
+                if($row["fech_asig"]==null){
+                    $sub_array[] = '<span class="label label-pill label-default">Sin Asignar</span>';
+                }else{
+                    $sub_array[] = date("d/m/Y H:i:s", strtotime($row["fech_asig"]));
+                }
+
+                if($row["fech_cierre"]==null){
+                    $sub_array[] = '<span class="label label-pill label-default">Sin Cerrar</span>';
+                }else{
+                    $sub_array[] = date("d/m/Y H:i:s", strtotime($row["fech_cierre"]));
+                }
+
+                if($row["usu_asig"]==null){
+                    $sub_array[] = '<a onClick="asignar('.$row["remi_id"].');"><span class="label label-pill label-warning">Sin Asignar</span></a>';
+                }else{
+                    $datos1=$usuario->get_usuario_x_id($row["usu_asig"]);
+                    foreach($datos1 as $row1){
+                        $sub_array[] = '<span class="label label-pill label-success">'. $row1["usu_nom"].'</span>';
+                    }
+                }
+
+                $sub_array[] = '<button type="button" onClick="enviar('.$row["remi_id"].');"  id="'.$row["remi_id"].'" class="btn btn-inline btn-success btn-sm ladda-button"><i class="fa fa-check"></i></button>';
                 $data[] = $sub_array;
             }
 
@@ -440,6 +546,11 @@
         /* TODO: Formato Json para grafico de soporte */
         case "grafico";
             $datos=$remision->get_remision_grafico();  
+            echo json_encode($datos);
+            break;
+
+        case "actualizar";
+            $datos= $remision->update_remi_estado($_POST["remi_id"]);
             echo json_encode($datos);
             break;
 

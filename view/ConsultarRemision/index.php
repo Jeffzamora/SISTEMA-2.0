@@ -34,52 +34,6 @@
 			</header>
 
 			<div class="box-typical box-typical-padding">
-				
-				<div class="row" id="viewuser">
-					<div class="col-lg-3">
-						<fieldset class="form-group">
-							<label class="form-label" for="remi_codigo">Remision</label>
-							<input type="text" class="form-control" id="remi_id" name="remi_id" placeholder="Numero de Remision" required>
-						</fieldset>
-					</div>
-
-					<div class="col-lg-3">
-						<fieldset class="form-group">
-							<label class="form-label" for="sucu_id">sucursal</label>
-							<select class="select2" id="sucu_id" name="sucu_id" data-placeholder="Seleccionar">
-								<option label="Seleccionar"></option>
-
-							</select>
-						</fieldset>
-					</div>
-
-					<div class="col-lg-2">
-						<fieldset class="form-group">
-							<label class="form-label" for="remi_estado">Estado</label>
-							<select class="select2" id="remi_estado" name="remi_estado" data-placeholder="Seleccionar">
-								<option value="" selected></option>
-								<option value="Abierto">Abierto</option>
-  								<option value="Procesando">Procesando</option>
-  								<option value="Cerrado">Cerrado</option>
-							</select>
-						</fieldset>
-					</div>
-
-					<div class="col-lg-2">
-						<fieldset class="form-group">
-							<label class="form-label" for="btnfiltrar">&nbsp;</label>
-							<button type="submit" class="btn btn-rounded btn-primary btn-block" id="btnfiltrar">Filtrar</button>
-						</fieldset>
-					</div>
-
-					<div class="col-lg-2">
-						<fieldset class="form-group">
-							<label class="form-label" for="btntodo">&nbsp;</label>
-							<button class="btn btn-rounded btn-primary btn-block" id="btntodo">Ver Todo</button>
-						</fieldset>
-					</div>
-				</div>
-
 				<div class="box-typical box-typical-padding" id="table">
 					<table id="ticket_data" class="table table-bordered table-striped table-vcenter js-dataTable-full">
 						<thead>

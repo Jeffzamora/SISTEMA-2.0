@@ -23,7 +23,7 @@ function mostrar_notificacion(){
                 $.notify({
                     icon: 'glyphicon glyphicon-star',
                     message: data.not_mensaje,
-                    url: "../view/DetalleRemision/?ID="+data.remi_id
+                    url: "https://fama.logicsa.net/view/DetalleRemision/?ID="+data.remi_id
                 });
 
                 $.post("../../controller/notificacion.php?op=actualizar", {not_id : data.not_id}, function (data) {
@@ -37,6 +37,6 @@ function mostrar_notificacion(){
 
 setInterval(function(){
     mostrar_notificacion();
-}, 5000);
+}, 6000);
 
 

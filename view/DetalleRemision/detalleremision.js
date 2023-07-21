@@ -8,7 +8,7 @@ $(document).ready(function(){
     listardetalle(remi_id);
 
     /* TODO: Inicializamos summernotejs */
-    $('#tickd_descrip').summernote({
+    $('#remid_descrip').summernote({
         height: 120,
         lang: "es-ES",
         callbacks: {
@@ -31,7 +31,7 @@ $(document).ready(function(){
     });
 
     /* TODO: Inicializamos summernotejs */
-    $('#tickd_descripusu').summernote({
+    $('#remid_descripusu').summernote({
         height: 120,
         lang: "es-ES",
         toolbar: [
@@ -44,7 +44,7 @@ $(document).ready(function(){
         ]
     });  
 
-    $('#tickd_descripusu').summernote('disable');
+    $('#remid_descripusu').summernote('disable');
 
     /* TODO: Listamos documentos en caso hubieran */
     tabla=$('#documentos_data').dataTable({

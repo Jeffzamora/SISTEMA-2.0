@@ -14,7 +14,7 @@
                 $sub_array = array();
                 $sub_array[] = '<a href="../../public/document/'.$_POST["remi_id"].'/'.$row["doc_nom"].'" target="_blank">'.$row["doc_nom"].'</a>';
                 /* TODO: Formato HTML para abrir el documento o descargarlo en una nueva ventana */
-                $sub_array[] = '<a type="button" href="../../public/document/'.$_POST["remi_id"].'/'.$row["doc_nom"].'" target="_blank" class="btn btn-inline btn-primary btn-sm ladda-button"><i class="fa fa-eye"></i></a>';
+                $sub_array[] = '<a type="button" href="../../public/document/'.$_POST["remi_id"].'/'.$row["doc_nom"].'" target="_blank" class="btn btn-inline btn-primary btn-sm ladda-button"><i class="fa fa-dowload"></i></a>';
                 $data[] = $sub_array;
             }
 

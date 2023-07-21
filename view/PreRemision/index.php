@@ -84,7 +84,7 @@
 					<table id="ticket_data" class="table table-bordered table-striped table-vcenter js-dataTable-full">
 						<thead>
 							<tr>
-								<th style="width: 5%;">Nro.</th>
+								<th style="width: 5%;">N° Caja</th>
 								<th style="width: 15%;">Sucursal</th>
 								<th class="d-none d-sm-table-cell" style="width: 15%;">Tipo</th>
 								<th class="d-none d-sm-table-cell" style="width: 5%;">Estado</th>

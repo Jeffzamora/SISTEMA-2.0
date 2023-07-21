@@ -60,7 +60,7 @@
             parent::set_names();
             $sucu_id= $_SESSION["sucu_id"];
             $sql="SELECT 
-            tm_remision.remi_id,
+            tm_remision.remi_caja,
             tm_remision.usu_id,
             tm_remision.sucu_id,
             tm_remision.remi_cancel,

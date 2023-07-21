@@ -60,7 +60,7 @@
 					<div class="col-lg-3">
 						<fieldset class="form-group">
 							<label class="form-label semibold" for="remi_cancel">Tipo de expediente</label>
-							<input type="text" class="form-control" id="remi_cancel" name="remi_cancel" placeholder="Tipo de expediente">
+							<input type="text" class="form-control" id="remi_cancel" name="remi_cancel" placeholder="Tipo de expediente" value="Cancelados">
 						</fieldset>
 					</div>
 

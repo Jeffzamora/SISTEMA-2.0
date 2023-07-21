@@ -86,7 +86,7 @@ $(document).ready(function(){
 
 /* TODO: Link para poder ver el detalle de Remision en otra ventana */
 function ver(remi_id){
-    window.open('../../view/DetalleRemision/?ID='+ remi_id +'');
+    window.open('https://fama.logicsa.net/view/DetalleRemision/?ID='+ remi_id +'');
 }
 
 

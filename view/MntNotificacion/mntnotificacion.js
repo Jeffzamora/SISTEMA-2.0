@@ -60,5 +60,5 @@ $(document).ready(function(){
 
 /* TODO: Funcion para abrir detalle de  Remision en una nueva ventana */
 function ver(remi_id){
-    window.open('../view/DetalleTicket/?ID='+ remi_id +'');
+    window.open('../../view/DetalleRemision/?ID='+ remi_id +'');
 }

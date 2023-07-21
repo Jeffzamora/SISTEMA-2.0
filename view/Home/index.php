@@ -22,7 +22,7 @@
 			<div class="row">
 				<div class="col-xl-12">
 					<div class="row">
-						<div class="col-sm-4">
+						<div class="col-sm-3">
 	                        <article class="statistic-box green">
 	                            <div>
 	                                <div class="number" id="lbltotal"></div>
@@ -30,7 +30,7 @@
 	                            </div>
 	                        </article>
 	                    </div>
-						<div class="col-sm-4">
+						<div class="col-sm-3">
 	                        <article class="statistic-box yellow">
 	                            <div>
 	                                <div class="number" id="lbltotalabierto"></div>
@@ -38,15 +38,15 @@
 	                            </div>
 	                        </article>
 	                    </div>
-						<div class="col-sm-4">
-	                        <article class="statistic-box gray">
+						<div class="col-sm-3">
+	                        <article class="statistic-box yellow">
 	                            <div>
 	                                <div class="number" id="lbltotalprocesado"></div>
 	                                <div class="caption"><div>Total de Remisiones re-Abierta</div></div>
 	                            </div>
 	                        </article>
 	                    </div>
-						<div class="col-sm-4">
+						<div class="col-sm-3">
 	                        <article class="statistic-box red">
 	                            <div>
 	                                <div class="number" id="lbltotalcerrado"></div>

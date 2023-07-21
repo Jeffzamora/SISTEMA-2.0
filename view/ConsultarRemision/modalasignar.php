@@ -9,7 +9,7 @@
             </div>
             <form method="post" id="ticket_form">
                 <div class="modal-body">
-                    <input id="remi_id" name="remi_id">
+                    <input type="hidden" id="remi_id" name="remi_id">
 
                     <div class="form-group">
                         <label class="form-label" for="usu_asig">Soporte</label>

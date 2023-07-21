@@ -165,8 +165,31 @@ function CambiarEstado(remi_id){
     });
 }
 
+/* TODO:Filtro avanzado */
+$(document).on("click","#btnfiltrar", function(){
+    limpiar();
+
+    var remi_id = $('#remi_id').val();
+    var sucu_id = $('#sucu_id').val();
+    var remi_estado = $('#remi_estado').val();
+
+    listardatatable(remi_id,sucu_id,remi_estado);
+
+});
+
+/* TODO: Restaurar Datatable js y limpiar */
+$(document).on("click","#btntodo", function(){
+    limpiar();
+
+    $('#remi_id').val('');
+    $('#sucu_id').val('').trigger('change');
+    $('#remi_estado').val('').trigger('change');
+
+    listardatatable('','','');
+});
+
 /* TODO: Listar datatable con filtro avanzado */
-function listardatatable(){
+function listardatatable(remi_id,sucu_id,remi_estado){
     tabla=$('#ticket_data').dataTable({
         "aProcessing": true,
         "aServerSide": true,
@@ -184,7 +207,7 @@ function listardatatable(){
             url: '../../controller/remision.php?op=listar_filtro',
             type : "post",
             dataType : "json",
-            data: data,
+            data:{ remi_id:remi_id,sucu_id:sucu_id,remi_estado:remi_estado},
             error: function(e){
                 console.log(e.responseText);
             }

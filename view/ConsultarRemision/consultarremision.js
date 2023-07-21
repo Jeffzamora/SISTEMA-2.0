@@ -207,7 +207,7 @@ function listardatatable(remi_id,sucu_id,remi_estado){
             url: '../../controller/remision.php?op=listar_filtro',
             type : "post",
             dataType : "json",
-            data:{ remi_id:remi_id,sucu_id:sucu_id,remi_estado:remi_estado},
+            data: data,
             error: function(e){
                 console.log(e.responseText);
             }

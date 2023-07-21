@@ -2,7 +2,7 @@ var tabla;
 var usu_id =  $('#user_idx').val();
 var usu_env =  $('#user_idx').val();
 var rol_id =  $('#rol_idx').val();
-var xsucu_id =  $('#sucu_idx').val();
+var sucu_id =  $('#sucu_idx').val();
 
 function init(){
     $("#ticket_form").on("submit",function(e){

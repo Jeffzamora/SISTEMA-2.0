@@ -351,18 +351,26 @@
         }
 
         /* TODO: Filtro Avanzado de Remisiones */
-        public function filtrar_remision($remi_id,$sucu_id,$remi_estado){
-            $conectar= parent::conexion();
+        public function filtrar_remision($remi_id, $sucu_id, $remi_estado) {
+            $conectar = parent::conexion();
             parent::set_names();
-            $sql="call filtrar_ticket (?,?,?)";
-            $sql=$conectar->prepare($sql);
-            $sql->bindValue(1, $remi_id);
-            $sql->bindValue(2, $sucu_id);
+        
+            // Si los parámetros están vacíos, asignamos NULL
+            $remi_id = empty($remi_id) ? null : $remi_id;
+            $sucu_id = empty($sucu_id) ? null : $sucu_id;
+            $remi_estado = empty($remi_estado) ? null : $remi_estado;
+        
+            // Usamos el procedimiento almacenado con parámetros preparados
+            $sql = "CALL sp_filtrar_remisiones(?, ?, ?)";
+            $sql = $conectar->prepare($sql);
+            $sql->bindValue(1, $remi_id, PDO::PARAM_INT);
+            $sql->bindValue(2, $sucu_id, PDO::PARAM_INT);
             $sql->bindValue(3, "%".$remi_estado."%");
             $sql->execute();
-            return $resultado=$sql->fetchAll();
-
+        
+            return $resultado = $sql->fetchAll();
         }
+        
 
         /* TODO: Filtro Avanzado de Remisiones */
         public function filtrar_remision0($remi_id,$sucu_id,$remi_estado){

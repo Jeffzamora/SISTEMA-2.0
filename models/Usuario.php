@@ -126,7 +126,7 @@
         public function get_usuario_total_x_id($usu_id){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="SELECT COUNT(*) as TOTAL FROM tm_remision where usu_id = ?";
+            $sql="SELECT COUNT(*) as TOTAL FROM tm_remision where sucu_id = ?";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $usu_id);
             $sql->execute();
@@ -134,51 +134,50 @@
         }
 
         /* TODO: Total de Remision Abiertos por usu_id */
-        public function get_usuario_totalabierto_x_id($usu_id){
+        public function get_usuario_totalabierto_x_id($sucu_id){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="SELECT COUNT(*) as TOTAL FROM tm_remision where usu_id = ? and remi_estado='Abierto'";
+            $sql="SELECT COUNT(*) as TOTAL FROM tm_remision where sucu_id = ? and remi_estado='Abierto'";
             $sql=$conectar->prepare($sql);
-            $sql->bindValue(1, $usu_id);
+            $sql->bindValue(1, $sucu_id);
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
          /* TODO: Total de Remisiones Procesadas por usu_id */
-        public function get_usuario_totalprocesando_x_id($usu_id){
+        public function get_usuario_totalprocesando_x_id($sucu_id){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="SELECT COUNT(*) as TOTAL FROM tm_remision where usu_id = ? and remi_estado='Procesando'";
+            $sql="SELECT COUNT(*) as TOTAL FROM tm_remision where sucu_id = ? and remi_estado='Procesando'";
             $sql=$conectar->prepare($sql);
-            $sql->bindValue(1, $usu_id);
+            $sql->bindValue(1, $sucu_id);
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
         /* TODO: Total de Remisiones Cerrado por usu_id */
-        public function get_usuario_totalcerrado_x_id($usu_id){
+        public function get_usuario_totalcerrado_x_id($sucu_id){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="SELECT COUNT(*) as TOTAL FROM tm_remision where usu_id = ? and remi_estado='Cerrado'";
+            $sql="SELECT COUNT(*) as TOTAL FROM tm_remision where sucu_id = ? and remi_estado='Cerrado'";
             $sql=$conectar->prepare($sql);
-            $sql->bindValue(1, $usu_id);
+            $sql->bindValue(1, $sucu_id);
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
 
         /* TODO: Total de Remisiones por sucursal segun usuario */
-        public function get_usuario_grafico($usu_id){
+        public function get_usuario_grafico($sucu_id){
             $conectar= parent::conexion();
             parent::set_names();
             $sql="SELECT tm_sucursal.sucu_nom as nom,COUNT(*) AS total
                 FROM   tm_remision  JOIN  
                     tm_sucursal ON tm_remision.sucu_id = tm_sucursal.sucu_id  
                 WHERE    
-                tm_remision.est = 1
-                and tm_remision.usu_id = ?
+                tm_remision.sucu_id = ?
                 GROUP BY 
                 tm_sucursal.sucu_nom 
                 ORDER BY total DESC";
             $sql=$conectar->prepare($sql);
-            $sql->bindValue(1, $usu_id);
+            $sql->bindValue(1, $sucu_id);
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }

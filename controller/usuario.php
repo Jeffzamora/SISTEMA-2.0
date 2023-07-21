@@ -77,8 +77,8 @@
             break;
 
         case "total":
-            $usuId = $_POST["usu_id"];
-            $datos = $usuarioModelo->get_usuario_total_x_id($usuId);
+            $sucuId = $_POST["sucu_id"];
+            $datos = $usuarioModelo->get_usuario_total_x_id($sucuId);
             $output = array();
 
             if (is_array($datos) && count($datos) > 0) {
@@ -89,8 +89,8 @@
             break;
 
         case "totalabierto":
-            $usuId = $_POST["usu_id"];
-            $datos = $usuarioModelo->get_usuario_totalabierto_x_id($usuId);
+            $sucuId = $_POST["sucu_id"];
+            $datos = $usuarioModelo->get_usuario_totalabierto_x_id($sucuId);
             $output = array();
 
             if (is_array($datos) && count($datos) > 0) {
@@ -101,8 +101,8 @@
             break;
 
         case "totalprocesando":
-            $usuId = $_POST["usu_id"];
-            $datos = $usuarioModelo->get_usuario_totalprocesando_x_id($usuId);
+            $sucuId = $_POST["sucu_id"];
+            $datos = $usuarioModelo->get_usuario_totalprocesando_x_id($sucuId);
             $output = array();
 
             if (is_array($datos) && count($datos) > 0) {
@@ -113,8 +113,8 @@
             break;
 
         case "totalcerrado":
-            $usuId = $_POST["usu_id"];
-            $datos = $usuarioModelo->get_usuario_totalcerrado_x_id($usuId);
+            $sucuId = $_POST["sucu_id"];
+            $datos = $usuarioModelo->get_usuario_totalcerrado_x_id($sucuId);
             $output = array();
 
             if (is_array($datos) && count($datos) > 0) {
@@ -125,8 +125,8 @@
             break;
 
         case "grafico":
-            $usuId = $_POST["usu_id"];
-            $datos = $usuarioModelo->get_usuario_grafico($usuId);
+            $sucuId = $_POST["sucu_id"];
+            $datos = $usuarioModelo->get_usuario_grafico($sucuId);
             echo json_encode($datos);
             break;
 

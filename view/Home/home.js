@@ -3,31 +3,31 @@ function init(){
 }
 
 $(document).ready(function(){
-    var usu_id = $('#user_idx').val();
+    var sucu_id = $('#sucu_idx').val();
 
     /* TODO: Llenar graficos segun rol  */
     if ( $('#rol_idx').val() == 1){
-        $.post("../../controller/usuario.php?op=total", {usu_id:usu_id}, function (data) {
+        $.post("../../controller/usuario.php?op=total", {sucu_id:sucu_id}, function (data) {
             data = JSON.parse(data);
             $('#lbltotal').html(data.TOTAL);
         }); 
 
-        $.post("../../controller/usuario.php?op=totalabierto", {usu_id:usu_id}, function (data) {
+        $.post("../../controller/usuario.php?op=totalabierto", {sucu_id:sucu_id}, function (data) {
             data = JSON.parse(data);
             $('#lbltotalabierto').html(data.TOTAL);
         });
 
-        $.post("../../controller/usuario.php?op=totalprocesado", {usu_id:usu_id}, function (data) {
+        $.post("../../controller/usuario.php?op=totalprocesando", {sucu_id:sucu_id}, function (data) {
             data = JSON.parse(data);
             $('#lbltotalprocesado').html(data.TOTAL);
         });
 
-        $.post("../../controller/usuario.php?op=totalcerrado", {usu_id:usu_id}, function (data) {
+        $.post("../../controller/usuario.php?op=totalcerrado", {sucu_id:sucu_id}, function (data) {
             data = JSON.parse(data);
             $('#lbltotalcerrado').html(data.TOTAL);
         });
 
-        $.post("../../controller/usuario.php?op=grafico", {usu_id:usu_id},function (data) {
+        $.post("../../controller/usuario.php?op=grafico", {sucu_id:sucu_id},function (data) {
             data = JSON.parse(data);
 
             new Morris.Bar({

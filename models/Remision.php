@@ -242,11 +242,11 @@
         public function update_remision($remi_id){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="update tm_remision
-                set	
+            $sql="UPDATE tm_remision
+                SET
                     remi_estado = 'Cerrado',
                     fech_cierre = now()
-                where
+                WHERE
                     remi_id = ?";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $remi_id);
@@ -260,7 +260,7 @@
             parent::set_names();
             $sql="UPDATE tm_remision
                 SET
-                    remi_estado = 'Abierto'
+                    remi_estado = 'Procesando'
                 WHERE
                     remi_id = ?";
             $sql=$conectar->prepare($sql);
@@ -380,7 +380,6 @@
             return $resultado = $sql->fetchAll();
         }
         
-
         /* TODO: Filtro Avanzado de Remisiones */
         public function filtrar_remision0(){
             $conectar = parent::conexion();

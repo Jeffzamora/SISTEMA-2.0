@@ -195,7 +195,7 @@
                 }elseif  ($row["remi_estado"]=="Procesando"){
                     $sub_array[] = '<span class="label label-pill label-warning">Procesando</span>';
                 }else{
-                    $sub_array[] = '<span class="label label-pill label-danger">Cerrado</span></a>';
+                    $sub_array[] = '<a onClick="CambiarEstado('.$row["remi_id"].')"><span class="label label-pill label-danger">Cerrado</span><a>';
                 }
 
                 $sub_array[] = date("d/m/Y H:i:s", strtotime($row["fech_crea"]));
@@ -246,6 +246,8 @@
 
                 if ($row["remi_estado"]=="Abierto"){
                     $sub_array[] = '<span class="label label-pill label-success">Abierto</span>';
+                }elseif  ($row["remi_estado"]=="Procesando"){
+                    $sub_array[] = '<span class="label label-pill label-warning">Procesando</span>';
                 }else{
                     $sub_array[] = '<a onClick="CambiarEstado('.$row["remi_id"].')"><span class="label label-pill label-danger">Cerrado</span><a>';
                 }
@@ -300,7 +302,7 @@
                 }elseif  ($row["remi_estado"]=="Procesando"){
                     $sub_array[] = '<span class="label label-pill label-warning">Procesando</span>';
                 }else{
-                    $sub_array[] = '<span class="label label-pill label-danger">Cerrado</span></a>';
+                    $sub_array[] = '<a onClick="CambiarEstado('.$row["remi_id"].')"><span class="label label-pill label-danger">Cerrado</span><a>';
                 }
 
                 $sub_array[] = date("d/m/Y H:i:s", strtotime($row["fech_crea"]));
@@ -520,6 +522,18 @@
         /* TODO: Total de Remisiones Abierto para vista de soporte */
         case "totalabierto";
             $datos=$remision->get_remision_totalabierto();  
+            if(is_array($datos)==true and count($datos)>0){
+                foreach($datos as $row)
+                {
+                    $output["TOTAL"] = $row["TOTAL"];
+                }
+                echo json_encode($output);
+            }
+            break;
+        
+        /* TODO: Total de Remisiones Cerrados para vista de soporte */
+        case "totalprocesado";
+            $datos=$remision->get_remision_totalprocesado();  
             if(is_array($datos)==true and count($datos)>0){
                 foreach($datos as $row)
                 {

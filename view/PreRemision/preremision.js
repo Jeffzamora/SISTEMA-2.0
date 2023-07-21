@@ -38,7 +38,7 @@ $(document).ready(function(){
                 url: '../../controller/remision.php?op=listar_x_sucu_0',
                 type : "post",
                 dataType : "json",
-                data:data,
+                data:{sucu_id : sucu_id},
                 error: function(e){
                     console.log(e.responseText);
                 }

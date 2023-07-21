@@ -405,7 +405,7 @@
           INNER JOIN tm_sucursal AS s ON r.sucu_id = s.sucu_id
           INNER JOIN tm_usuario AS u ON r.usu_id = u.usu_id
           WHERE
-            r.est = 1;";
+            r.est = 0;";
             $sql = $conectar->prepare($sql);
             $sql->execute();
             return $resultado = $sql->fetchAll();

@@ -235,7 +235,7 @@
 
         /* TODO: Listado de Remisiones,formato json para Datatable JS, filtro avanzado*/
         case "listar_filtro":
-            $datos=$remision->filtrar_remision($_POST["remi_id"],$_POST["sucu_id"],$_POST["remi_estado"]);
+            $datos=$ticket->filtrar_ticket($_POST["remi_id"],$_POST["sucu_id"],$_POST["remi_estado"]);
             $data= Array();
             foreach($datos as $row){
                 $sub_array = array();
@@ -246,10 +246,8 @@
 
                 if ($row["remi_estado"]=="Abierto"){
                     $sub_array[] = '<span class="label label-pill label-success">Abierto</span>';
-                }elseif  ($row["remi_estado"]=="Procesando"){
-                    $sub_array[] = '<span class="label label-pill label-warning">Procesando</span>';
                 }else{
-                    $sub_array[] = '<span class="label label-pill label-danger">Cerrado</span></a>';
+                    $sub_array[] = '<a onClick="CambiarEstado('.$row["remi_id"].')"><span class="label label-pill label-danger">Cerrado</span><a>';
                 }
 
                 $sub_array[] = date("d/m/Y H:i:s", strtotime($row["fech_crea"]));

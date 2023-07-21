@@ -44,7 +44,7 @@ $(document).ready(function(){
         ]
     });  
 
-    $('#remid_descripusu').summernote('disable');
+    $('#tickd_descripusu').summernote('disable');
 
     /* TODO: Listamos documentos en caso hubieran */
     tabla=$('#documentos_data').dataTable({

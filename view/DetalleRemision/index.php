@@ -1,13 +1,11 @@
 <?php
 require_once("../../config/conexion.php");
 if (isset($_SESSION["usu_id"])) {
-
 ?>
   <!DOCTYPE html>
-  
   <html>
   <?php require_once("../MainHead/head.php"); ?>
-  <title>AnderCode</>::Detalle Ticket</title>
+  <title>Logicsa: :Detalle Remision</title>
   </head>
 
   <body class="with-side-menu">
@@ -26,13 +24,13 @@ if (isset($_SESSION["usu_id"])) {
           <div class="tbl">
             <div class="tbl-row">
               <div class="tbl-cell">
-                <h3 id="lblnomidticket">Detalle Ticket - 1</h3>
+                <h3 id="lblnomidticket">Detalle Remision - 1</h3>
                 <div id="lblestado"></div>
                 <span class="label label-pill label-primary" id="lblnomusuario"></span>
                 <span class="label label-pill label-default" id="lblfechcrea"></span>
                 <ol class="breadcrumb breadcrumb-simple">
-                  <li><a href="#">Home</a></li>
-                  <li class="active">Detalle Ticket</li>
+                  <li><a href="../Home/">Home</a></li>
+                  <li class="active">Detalle Remision</li>
                 </ol>
               </div>
             </div>
@@ -42,42 +40,62 @@ if (isset($_SESSION["usu_id"])) {
         <div class="box-typical box-typical-padding">
           <div class="row">
 
+              <div class="col-lg-3">
+                <fieldset class="form-group">
+                  <label class="form-label semibold" for="sucu_id">Sucursal</label>
+                  <input type="text" class="form-control" id="sucu_id" name="sucu_id" readonly>
+                </fieldset>
+              </div>
+
+              <div class="col-lg-3">
+                <fieldset class="form-group">
+                  <label class="form-label semibold" for="remi_codigo">REMISION</label>
+                  <input type="text" class="form-control" id="remi_id" name="remi_id" readonly>
+                </fieldset>
+              </div>
+
+              <div class="col-lg-3">
+                <fieldset class="form-group">
+                  <label class="form-label semibold" for="remi_caja">CAJA INTERNA</label>
+                  <input type="text" class="form-control" id="remi_caja" name="remi_caja" readonly>
+                </fieldset>
+              </div>
+
+              <div class="col-lg-3">
+                <fieldset class="form-group">
+                  <label class="form-label semibold" for="remi_exp">TOTAL DE EXPEDIENTE</label>
+                  <input type="text" class="form-control" id="remi_exp" name="remi_exp" readonly>
+                </fieldset>
+              </div>
+
+              <div class="col-lg-3">
+							  <fieldset class="form-group">
+								  <label class="form-label semibold" for="remi_cancel">Tipo de expediente</label>
+								  <input type="text" class="form-control" id="remi_cancel" name="remi_cancel" readonly>
+							  </fieldset>
+						  </div>
+
+              <div class="col-lg-4">
+							  <fieldset class="form-group">
+								  <label class="form-label semibold" for="remi_desde">Fecha Desde</label>
+								  <input type="text" class="form-control" id="remi_desde" name="remi_desde" readonly>
+							  </fieldset>
+						  </div>
+
+						<div class="col-lg-4">
+							<fieldset class="form-group">
+								<label class="form-label semibold" for="remi_hasta">Fecha Hasta</label>
+								<input type="text" class="form-control" id="remi_hasta" name="remi_hasta" readonly>
+							</fieldset>
+						</div>
+
               <div class="col-lg-12">
                 <fieldset class="form-group">
-                  <label class="form-label semibold" for="tick_titulo">Titulo</label>
-                  <input type="text" class="form-control" id="tick_titulo" name="tick_titulo" readonly>
-                </fieldset>
-              </div>
-
-              <div class="col-lg-4">
-                <fieldset class="form-group">
-                  <label class="form-label semibold" for="cat_nom">Categoria</label>
-                  <input type="text" class="form-control" id="cat_nom" name="cat_nom" readonly>
-                </fieldset>
-              </div>
-
-              <div class="col-lg-4">
-                <fieldset class="form-group">
-                  <label class="form-label semibold" for="cat_nom">SubCategoria</label>
-                  <input type="text" class="form-control" id="cats_nom" name="cats_nom" readonly>
-                </fieldset>
-              </div>
-
-              <div class="col-lg-4">
-                <fieldset class="form-group">
-                  <label class="form-label semibold" for="cat_nom">Prioridad</label>
-                  <input type="text" class="form-control" id="prio_nom" name="prio_nom" readonly>
-                </fieldset>
-              </div>
-
-              <div class="col-lg-12">
-                <fieldset class="form-group">
-                  <label class="form-label semibold" for="tick_titulo">Documentos Adicionales</label>
                   <table id="documentos_data" class="table table-bordered table-striped table-vcenter js-dataTable-full">
                     <thead>
                       <tr>
-                        <th style="width: 90%;">Nombre</th>
-                        <th class="text-center" style="width: 10%;"></th>
+                        <th style="width: 90%;">Archivo</th>
+                        <th class="text-center" style="width: 10%;">Descarga</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -87,10 +105,9 @@ if (isset($_SESSION["usu_id"])) {
                 </fieldset>
               </div>
 
-
               <div class="col-lg-12">
                 <fieldset class="form-group">
-                  <label class="form-label semibold" for="tickd_descripusu">Descripción</label>
+                  <label class="form-label semibold" for="tickd_descripusu">Comentarios</label>
                   <div class="summernote-theme-1">
                     <textarea id="tickd_descripusu" name="tickd_descripusu" class="summernote" name="name"></textarea>
                   </div>
@@ -112,9 +129,9 @@ if (isset($_SESSION["usu_id"])) {
           <div class="row">
               <div class="col-lg-12">
                 <fieldset class="form-group">
-                  <label class="form-label semibold" for="tickd_descrip">Descripción</label>
+                  <label class="form-label semibold" for="remid_descrip">Escribir</label>
                   <div class="summernote-theme-1">
-                    <textarea id="tickd_descrip" name="tickd_descrip" class="summernote" name="name"></textarea>
+                    <textarea id="remid_descrip" name="remid_descrip" class="summernote" name="name"></textarea>
                   </div>
                 </fieldset>
               </div>
@@ -129,16 +146,13 @@ if (isset($_SESSION["usu_id"])) {
 
               <div class="col-lg-12">
                 <button type="button" id="btnenviar" class="btn btn-rounded btn-inline btn-primary">Enviar</button>
-
                 <?php
                   if($_SESSION["rol_id"]==2){
                     ?>
-                      <button type="button" id="btnchatgpt" class="btn btn-rounded btn-inline btn-success">ChatGpt</button>
+                       <button type="button" id="btncerrarticket" class="btn btn-rounded btn-inline btn-warning">Cerrar Remision</button>
                     <?php
                   }
                 ?>
-
-                <button type="button" id="btncerrarticket" class="btn btn-rounded btn-inline btn-warning">Cerrar Ticket</button>
               </div>
           </div>
 			  </div>
@@ -149,7 +163,7 @@ if (isset($_SESSION["usu_id"])) {
 
     <?php require_once("../MainJs/js.php"); ?>
 
-    <script type="text/javascript" src="detalleticket.js"></script>
+    <script type="text/javascript" src="detalleremision.js"></script>
 
     <script type="text/javascript" src="../notificacion.js"></script>
 

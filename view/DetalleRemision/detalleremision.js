@@ -3,13 +3,13 @@ function init(){
 }
 
 $(document).ready(function(){
-    var tick_id = getUrlParameter('ID');
+    var remi_id = getUrlParameter('ID');
 
-    listardetalle(tick_id);
+    listardetalle(remi_id);
 
     /* TODO: Inicializamos summernotejs */
     $('#tickd_descrip').summernote({
-        height: 400,
+        height: 120,
         lang: "es-ES",
         callbacks: {
             onImageUpload: function(image) {
@@ -32,7 +32,7 @@ $(document).ready(function(){
 
     /* TODO: Inicializamos summernotejs */
     $('#tickd_descripusu').summernote({
-        height: 400,
+        height: 120,
         lang: "es-ES",
         toolbar: [
             ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -63,7 +63,7 @@ $(document).ready(function(){
         "ajax":{
             url: '../../controller/documento.php?op=listar',
             type : "post",
-            data : {tick_id:tick_id},
+            data : {remi_id:remi_id},
             dataType : "json",
             error: function(e){
                 console.log(e.responseText);
@@ -118,18 +118,18 @@ var getUrlParameter = function getUrlParameter(sParam) {
 };
 
 $(document).on("click","#btnenviar", function(){
-    var tick_id = getUrlParameter('ID');
+    var remi_id = getUrlParameter('ID');
     var usu_id = $('#user_idx').val();
-    var tickd_descrip = $('#tickd_descrip').val();
+    var remid_descrip = $('#remid_descrip').val();
 
     /* TODO:Validamos si el summernote esta vacio antes de guardar */
-    if ($('#tickd_descrip').summernote('isEmpty')){
+    if ($('#remid_descrip').summernote('isEmpty')){
         swal("Advertencia!", "Falta Descripción", "warning");
     }else{
         var formData = new FormData();
-        formData.append('tick_id',tick_id);
+        formData.append('remi_id',remi_id);
         formData.append('usu_id',usu_id);
-        formData.append('tickd_descrip',tickd_descrip);
+        formData.append('remid_descrip',remid_descrip);
         var totalfiles = $('#fileElem').val().length;
         /* TODO:Agregamos los documentos adjuntos en caso hubiera */
         for (var i = 0; i < totalfiles; i++) {
@@ -138,17 +138,17 @@ $(document).on("click","#btnenviar", function(){
 
         /* TODO:Insertar detalle */
         $.ajax({
-            url: "../../controller/ticket.php?op=insertdetalle",
+            url: "../../controller/remision.php?op=insertdetalle",
             type: "POST",
             data: formData,
             contentType: false,
             processData: false,
             success: function(data){
                 console.log(data);
-                listardetalle(tick_id);
+                listardetalle(remi_id);
                 /* TODO: Limpiar inputfile */
                 $('#fileElem').val('');
-                $('#tickd_descrip').summernote('reset');
+                $('#remid_descrip').summernote('reset');
                 swal("Correcto!", "Registrado Correctamente", "success");
             }
         });
@@ -156,10 +156,10 @@ $(document).on("click","#btnenviar", function(){
 });
 
 $(document).on("click","#btncerrarticket", function(){
-    /* TODO: Preguntamos antes de cerrar el ticket */
+    /* TODO: Preguntamos antes de cerrar la Remision */
     swal({
-        title: "HelpDesk",
-        text: "Esta seguro de Cerrar el Ticket?",
+        title: "Remision",
+        text: "Esta seguro de Cerrar la Remision?",
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-warning",
@@ -169,30 +169,25 @@ $(document).on("click","#btncerrarticket", function(){
     },
     function(isConfirm) {
         if (isConfirm) {
-            var tick_id = getUrlParameter('ID');
+            var remi_id = getUrlParameter('ID');
             var usu_id = $('#user_idx').val();
-            /* TODO: Actualizamos el ticket  */
-            $.post("../../controller/ticket.php?op=update", { tick_id : tick_id,usu_id : usu_id }, function (data) {
+            /* TODO: Actualizamos la remision  */
+            $.post("../../controller/remision.php?op=update", { remi_id : remi_id,usu_id : usu_id }, function (data) {
 
             });
 
-            /* TODO:Alerta de ticket cerrado via email */
-            $.post("../../controller/email.php?op=ticket_cerrado", {tick_id : tick_id}, function (data) {
-
-            });
-
-            /* TODO:Alerta de ticket cerrado via Whaspp */
-            $.post("../../controller/whatsapp.php?op=w_ticket_cerrado", {tick_id : tick_id}, function (data) {
+            /* TODO:Alerta de Remision cerrado via email */
+            $.post("../../controller/email.php?op=remision_cerrado", {remi_id : remi_id}, function (data) {
 
             });
 
             /* TODO:Llamamos a funcion listardetalle */
-            listardetalle(tick_id);
+            listardetalle(remi_id);
 
             /* TODO: Alerta de confirmacion */
             swal({
-                title: "HelpDesk!",
-                text: "Ticket Cerrado correctamente.",
+                title: "Remision!",
+                text: "Remision Cerrado correctamente.",
                 type: "success",
                 confirmButtonClass: "btn-success"
             });
@@ -200,36 +195,32 @@ $(document).on("click","#btncerrarticket", function(){
     });
 });
 
-$(document).on("click","#btnchatgpt", function(){
-    var tick_id = getUrlParameter('ID');
-    $.post("../../controller/chatgpt.php?op=respuestaia", {tick_id : tick_id}, function (data) {
-        $('#tickd_descrip').summernote ('code', data);
-    });
-});
 
-function listardetalle(tick_id){
-    /* TODO: Mostramos informacion de detalle de ticket */
-    $.post("../../controller/ticket.php?op=listardetalle", { tick_id : tick_id }, function (data) {
+function listardetalle(remi_id){
+    /* TODO: Mostramos informacion de detalle de Remision */
+    $.post("../../controller/remision.php?op=listardetalle", { remi_id : remi_id }, function (data) {
         $('#lbldetalle').html(data);
     }); 
 
-    /* TODO: Mostramos informacion del ticket en inputs */
-    $.post("../../controller/ticket.php?op=mostrar", { tick_id : tick_id }, function (data) {
+    /* TODO: Mostramos informacion de la Remision en inputs */
+    $.post("../../controller/remision.php?op=mostrar", { remi_id : remi_id }, function (data) {
         data = JSON.parse(data);
-        $('#lblestado').html(data.tick_estado);
+        $('#lblestado').html(data.remi_estado);
         $('#lblnomusuario').html(data.usu_nom +' '+data.usu_ape);
         $('#lblfechcrea').html(data.fech_crea);
 
-        $('#lblnomidticket').html("Detalle Ticket - "+data.tick_id);
+        $('#lblnomidticket').html("Detalle Ticket - "+data.remi_id);
 
-        $('#cat_nom').val(data.cat_nom);
-        $('#cats_nom').val(data.cats_nom);
-        $('#tick_titulo').val(data.tick_titulo);
-        $('#tickd_descripusu').summernote ('code',data.tick_descrip);
+        $('#sucu_id').val(data.sucu_nom);
+        $('#remi_id').val(data.remi_id);
+        $('#remi_caja').val(data.remi_caja);
+        $('#remi_exp').val(data.remi_exp);
+        $('#remi_cancel').val(data.remi_cancel);
+        $('#remi_desde').val(data.remi_desde);
+        $('#remi_hasta').val(data.remi_hasta);
+        $('#tickd_descripusu').summernote ('code',data.remi_descrip);
 
-        $('#prio_nom').val(data.prio_nom);
-
-        if (data.tick_estado_texto == "Cerrado"){
+        if (data.remi_estado_texto == "Cerrado"){
             /* TODO: Ocultamos panel de detalle */
             $('#pnldetalle').hide();
         }

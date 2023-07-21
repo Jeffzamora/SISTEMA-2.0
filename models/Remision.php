@@ -273,12 +273,12 @@
         public function update_remision_asignacion($remi_id,$usu_asig){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="UPDATE tm_remision
-                SET
-                    usu_asig = ?
-                    fech_asig = now()
-                WHERE
-                    remi_id = ?";
+                $sql="UPDATE tm_remision
+                    SET
+                        usu_asig =?,
+                        fech_asig = now()
+                    WHERE
+                        remi_id = ?";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $usu_asig);
             $sql->bindValue(2, $remi_id);

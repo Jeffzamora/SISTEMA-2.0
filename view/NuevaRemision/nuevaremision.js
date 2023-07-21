@@ -7,7 +7,7 @@ function init(){
 
 $(document).ready(function() {
     /* TODO: Inicializar SummerNote */
-    $('#tick_descrip').summernote({
+    $('#remi_descrip').summernote({
         height: 100,
         lang: "es-ES",
         popover: {

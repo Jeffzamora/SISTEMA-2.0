@@ -36,7 +36,7 @@
                     $row["usu_ape"],
                     $row["usu_correo"],
                     $row["sucu_nom"],
-                    $row["rol_id"] == "1" ? '<span class="label label-pill label-info">FAMA</span>' : '<span class="label label-pill label-success">LOGICSA</span>',
+                    $row["rol_id"] == "1" ? '<span class="label label-pill label-info">FAMA</span>' : '<span class="label label-pill label-primary">LOGICSA</span>',
                     '<button type="button" onClick="editar('.$row["usu_id"].');"  id="'.$row["usu_id"].'" class="btn btn-inline btn-warning btn-sm ladda-button"><i class="fa fa-edit"></i></button>',
                     '<button type="button" onClick="eliminar('.$row["usu_id"].');"  id="'.$row["usu_id"].'" class="btn btn-inline btn-danger btn-sm ladda-button"><i class="fa fa-trash"></i></button>'
                 );

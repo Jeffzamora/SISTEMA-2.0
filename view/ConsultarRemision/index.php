@@ -39,7 +39,7 @@
 					<div class="col-lg-3">
 						<fieldset class="form-group">
 							<label class="form-label" for="remi_codigo">Remision</label>
-							<input type="text" class="form-control" id="remi_id" name="remi_id" placeholder="Numero de Remision" required>
+							<input type="text" class="form-control" id="remi_id_" name="remi_id_" placeholder="Numero de Remision" required>
 						</fieldset>
 					</div>
 

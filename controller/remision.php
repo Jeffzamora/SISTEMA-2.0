@@ -286,7 +286,7 @@
             break;
 
         case "listar_filtro_0":
-            $datos=$remision->filtrar_remision0($_POST["remi_id"],$_POST["sucu_id"],$_POST["remi_estado"]);
+            $datos=$remision->filtrar_remision0();
             $data= Array();
             foreach($datos as $row){
                 $sub_array = array();

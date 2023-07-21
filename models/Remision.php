@@ -382,17 +382,33 @@
         
 
         /* TODO: Filtro Avanzado de Remisiones */
-        public function filtrar_remision0($remi_id,$sucu_id,$remi_estado){
-            $conectar= parent::conexion();
-            parent::set_names();
-            $sql="call filtrar_ticket2 (?,?,?)";
-            $sql=$conectar->prepare($sql);
-            $sql->bindValue(1, $remi_id);
-            $sql->bindValue(2, $sucu_id);
-            $sql->bindValue(3, "%".$remi_estado."%");
+        public function filtrar_remision0(){
+            $conectar = parent::conexion();
+            parent::set_names(); 
+            // Usamos el procedimiento almacenado con parámetros preparados
+            $sql = "SELECT 
+            r.remi_id,
+            r.usu_id,
+            r.sucu_id,
+            r.remi_caja,
+            r.remi_cancel,
+            r.remi_estado,
+            r.fech_crea,
+            r.fech_cierre,
+            r.usu_asig,
+            r.fech_asig,
+            u.usu_nom,
+            u.usu_ape,
+            s.sucu_nom
+          FROM 
+            tm_remision AS r
+          INNER JOIN tm_sucursal AS s ON r.sucu_id = s.sucu_id
+          INNER JOIN tm_usuario AS u ON r.usu_id = u.usu_id
+          WHERE
+            r.est = 1;";
+            $sql = $conectar->prepare($sql);
             $sql->execute();
-            return $resultado=$sql->fetchAll();
-
+            return $resultado = $sql->fetchAll();
         }
         /* TODO: Enviar remision a logicsa */
         public function update_remi_estado($remi_id){

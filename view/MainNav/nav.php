@@ -53,8 +53,8 @@
                     </li>
 
                     <li class="blue-dirty">
-                        <a href="..\NuevaCaqja\">
-                            <span class="glyphicon glyphicon-box-open"></span>
+                        <a href="..\NuevaCaja\">
+                            <span class="glyphicon glyphicon-folder-close"></span>
                             <span class="lbl">Nueva Caja</span>
                         </a>
                     </li>

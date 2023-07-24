@@ -28,7 +28,7 @@
 
         public static function ruta() {
             // Ruta del proyecto
-            return "http://localhost:8000/";
+            return "http://18.191.189.190/";
         }
     }
 

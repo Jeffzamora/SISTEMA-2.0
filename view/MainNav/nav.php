@@ -53,6 +53,13 @@
                     </li>
 
                     <li class="blue-dirty">
+                        <a href="..\NuevaCaqja\">
+                            <span class="glyphicon glyphicon-box"></span>
+                            <span class="lbl">Nueva Caja</span>
+                        </a>
+                    </li>
+
+                    <li class="blue-dirty">
                         <a href="..\MntUsuario\">
                             <span class="glyphicon glyphicon-user"></span>
                             <span class="lbl">Usuarios</span>

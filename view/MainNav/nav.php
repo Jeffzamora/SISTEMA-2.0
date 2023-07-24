@@ -54,7 +54,7 @@
 
                     <li class="blue-dirty">
                         <a href="..\NuevaCaqja\">
-                            <span class="glyphicon glyphicon-box"></span>
+                            <span class="glyphicon glyphicon-box-open"></span>
                             <span class="lbl">Nueva Caja</span>
                         </a>
                     </li>

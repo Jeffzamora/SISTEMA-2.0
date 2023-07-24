@@ -2,39 +2,87 @@
     class Usuario extends Conectar{
 
         /* TODO: Funcion de login y generacion de session */
-        public function login(){
-            $conectar=parent::conexion();
+        public function login() {
+            $conectar = parent::conexion();
             parent::set_names();
-            if(isset($_POST["enviar"])){
+        
+            if (isset($_POST["enviar"])) {
                 $correo = $_POST["usu_correo"];
                 $pass = $_POST["usu_pass"];
                 $rol = $_POST["rol_id"];
-                if(empty($correo) and empty($pass)){
+        
+                if (empty($correo) || empty($pass)) {
                     header("Location:".conectar::ruta()."index.php?m=2");
-					exit();
-                }else{
-                    $sql = "SELECT * FROM tm_usuario WHERE usu_correo=? and usu_pass=MD5(?) and rol_id=? and est=1";
-                    $stmt=$conectar->prepare($sql);
+                    exit();
+                } else {
+                    // Verificar si el usuario ha sido bloqueado
+                    $sql_bloqueo = "SELECT bloqueado FROM tm_login_attempts WHERE usu_correo=?";
+                    $stmt_bloqueo = $conectar->prepare($sql_bloqueo);
+                    $stmt_bloqueo->bindValue(1, $correo);
+                    $stmt_bloqueo->execute();
+                    $resultado_bloqueo = $stmt_bloqueo->fetch();
+        
+                    if ($resultado_bloqueo && $resultado_bloqueo["bloqueado"] == 1) {
+                        header("Location:".conectar::ruta()."index.php?m=3");
+                        exit();
+                    }
+        
+                    // Verificar las credenciales del usuario
+                    $sql = "SELECT usu_pass FROM tm_usuario WHERE usu_correo=? AND rol_id=? AND est=1";
+                    $stmt = $conectar->prepare($sql);
                     $stmt->bindValue(1, $correo);
-                    $stmt->bindValue(2, $pass);
-                    $stmt->bindValue(3, $rol);
+                    $stmt->bindValue(2, $rol);
                     $stmt->execute();
                     $resultado = $stmt->fetch();
-                    if (is_array($resultado) and count($resultado)>0){
-                        $_SESSION["usu_id"]=$resultado["usu_id"];
-                        $_SESSION["usu_nom"]=$resultado["usu_nom"];
-                        $_SESSION["usu_ape"]=$resultado["usu_ape"];
-                        $_SESSION["rol_id"]=$resultado["rol_id"];
-                        $_SESSION["sucu_id"]=$resultado["sucu_id"];
+        
+                    if ($resultado && password_verify($pass, $resultado["usu_pass"])) {
+                        // Restablecer el contador de intentos fallidos y desbloquear al usuario
+                        $sql_reset = "UPDATE tm_login_attempts SET intentos_fallidos=0, bloqueado=0 WHERE usu_correo=?";
+                        $stmt_reset = $conectar->prepare($sql_reset);
+                        $stmt_reset->bindValue(1, $correo);
+                        $stmt_reset->execute();
+        
+                        // Almacenar los datos del usuario en la sesión
+                        $_SESSION["usu_id"] = $resultado["usu_id"];
+                        $_SESSION["usu_nom"] = $resultado["usu_nom"];
+                        $_SESSION["usu_ape"] = $resultado["usu_ape"];
+                        $_SESSION["rol_id"] = $resultado["rol_id"];
+                        $_SESSION["sucu_id"] = $resultado["sucu_id"];
+        
                         header("Location:".Conectar::ruta()."view/Home/");
-                        exit(); 
-                    }else{
-                        header("Location:".Conectar::ruta()."index.php?m=1");
                         exit();
+                    } else {
+                        // Incrementar el contador de intentos fallidos o insertar un registro si no existe
+                        $sql_attempts = "INSERT INTO tm_login_attempts (usu_correo, intentos_fallidos, ultimo_intento) VALUES (?, 1, NOW()) ON DUPLICATE KEY UPDATE intentos_fallidos=intentos_fallidos+1, ultimo_intento=NOW()";
+                        $stmt_attempts = $conectar->prepare($sql_attempts);
+                        $stmt_attempts->bindValue(1, $correo);
+                        $stmt_attempts->execute();
+        
+                        // Verificar si el usuario debe ser bloqueado
+                        $sql_check_attempts = "SELECT intentos_fallidos FROM tm_login_attempts WHERE usu_correo=?";
+                        $stmt_check_attempts = $conectar->prepare($sql_check_attempts);
+                        $stmt_check_attempts->bindValue(1, $correo);
+                        $stmt_check_attempts->execute();
+                        $resultado_check_attempts = $stmt_check_attempts->fetch();
+        
+                        if ($resultado_check_attempts && $resultado_check_attempts["intentos_fallidos"] >= 3) {
+                            // Bloquear al usuario
+                            $sql_block = "UPDATE tm_login_attempts SET bloqueado=1 WHERE usu_correo=?";
+                            $stmt_block = $conectar->prepare($sql_block);
+                            $stmt_block->bindValue(1, $correo);
+                            $stmt_block->execute();
+        
+                            header("Location:".conectar::ruta()."index.php?m=3");
+                            exit();
+                        } else {
+                            header("Location:".conectar::ruta()."index.php?m=1");
+                            exit();
+                        }
                     }
                 }
             }
         }
+        
 
         /* TODO:Insert */
         public function insert_usuario($usu_nom,$usu_ape,$usu_correo,$usu_pass,$rol_id,$sucu_id,$usu_telf){

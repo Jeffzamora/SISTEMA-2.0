@@ -45,15 +45,15 @@
                         </a>
                     </li>
 
-                    <li class="green with-sub">
+                    <li class="purple with-sub">
 	                        <span>
-	                            <i class="font-icon font-icon-list-alt"></i>
+	                            <i class="fa fa-list-alt"></i>
 	                                <span class="lbl">Remisiones</span>
 	                        </span>
 	                    <ul>
                             <li class="blue-dirty">
                                 <a href="..\NuevaRemision\">
-                                    <span class="glyphicon glyphicon-list-alt">Nueva Remision</span>
+                                    <span class="lbl">Nueva Remision</span>
                                 </a>
                             </li>
 

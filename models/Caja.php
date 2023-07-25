@@ -6,7 +6,7 @@
             parent::set_names();
             $sql="INSERT INTO tm_cajas(caja_id,usu_id,sucu_id,caja_num,caja_exp,caja_tipo,caja_desde,caja_hasta,caja_descrip,est)
             VALUES 
-            (?,?,?,?,?,?,?,?,?,0);";
+            (NULL,?,?,?,?,?,?,?,?,0);";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $caja_id);
             $sql->bindValue(2, $usu_id);

@@ -23,10 +23,10 @@
 			<div class="tbl">
 				<div class="tbl-row">
 					<div class="tbl-cell">
-						<h3>Nueva Remision</h3>
+						<h3>Nueva Caja</h3>
 						<ol class="breadcrumb breadcrumb-simple">
-							<li><a href="../Home/index.php">Home</a></li>
-							<li class="active">Nueva Remision</li>
+							<li><a href="../Home/">Home</a></li>
+							<li class="active">Nueva Caja</li>
 						</ol>
 					</div>
 				</div>
@@ -35,54 +35,47 @@
 
 		<div class="box-typical box-typical-padding">
 
-			<h5 class="m-t-lg with-border">Ingresar Información</h5>
+			<h5 class="m-t-lg with-border">Ingresar Información de la caja</h5>
 
 			<div class="row">
-				<form method="post" id="ticket_form">
+				<form method="post" id="caja_form">
 
 					<input type="hidden" id="usu_id" name="usu_id" value="<?php echo $_SESSION["usu_id"]?>">
 					<input type="hidden" id="sucu_id" name="sucu_id" value="<?php echo $_SESSION["sucu_id"]?>">
 
 					<div class="col-lg-3">
 						<fieldset class="form-group">
-							<label class="form-label semibold" for="remi_caja">Caja Interna</label>
-							<input type="text" class="form-control" id="remi_caja" name="remi_caja" placeholder="Ingrese Caja interna">
+							<label class="form-label semibold" for="caja_num">Caja Interna</label>
+							<input type="text" class="form-control" id="caja_num" name="caja_num" placeholder="Ingrese Caja interna">
 							<div id="caja-error" class="alert alert-danger" style="display: none;">El código de caja ya existe.</div>
 						</fieldset>
 					</div>
 
 					<div class="col-lg-3">
 						<fieldset class="form-group">
-							<label class="form-label semibold" for="remi_exp">Total de Expedientes</label>
-							<input type="text" class="form-control" id="remi_exp" name="remi_exp" placeholder="Ingrese total Expediente">
+							<label class="form-label semibold" for="caja_exp">Total de Expedientes</label>
+							<input type="text" class="form-control" id="caja_exp" name="caja_exp" placeholder="Ingrese total Expediente">
 						</fieldset>
 					</div>
 
 					<div class="col-lg-3">
 						<fieldset class="form-group">
-							<label class="form-label semibold" for="remi_cancel">Tipo de expediente</label>
-							<input type="text" class="form-control" id="remi_cancel" name="remi_cancel" placeholder="Tipo de expediente" value="CANCELADOS">
+							<label class="form-label semibold" for="caja_tipo">Tipo de expediente</label>
+							<input type="text" class="form-control" id="caja_tipo" name="caja_tipo" placeholder="Tipo de expediente" value="CANCELADOS">
 						</fieldset>
 					</div>
 
 					<div class="col-lg-4">
 						<fieldset class="form-group">
-							<label class="form-label semibold" for="remi_desde">Fecha Desde</label>
-							<input type="date" class="form-control" id="remi_desde" name="remi_desde" >
+							<label class="form-label semibold" for="caja_desde">Fecha Desde</label>
+							<input type="date" class="form-control" id="caja_desde" name="caja_desde" >
 						</fieldset>
 					</div>
 
 					<div class="col-lg-4">
 						<fieldset class="form-group">
-							<label class="form-label semibold" for="remi_hasta">Fecha Hasta</label>
-							<input type="date" class="form-control" id="remi_hasta" name="remi_hasta" >
-						</fieldset>
-					</div>
-
-					<div class="col-lg-4">
-						<fieldset class="form-group">
-							<label class="form-label semibold" for="exampleInput">Archivo Excel</label>
-							<input type="file" name="fileElem" id="fileElem" class="form-control" multiple>
+							<label class="form-label semibold" for="caja_hasta">Fecha Hasta</label>
+							<input type="date" class="form-control" id="caja_hasta" name="caja_hasta" >
 						</fieldset>
 					</div>
 
@@ -90,7 +83,7 @@
 						<fieldset class="form-group">
 							<label class="form-label semibold" for="remi_descrip">Comentarios</label>
 							<div class="summernote-theme-1">
-								<textarea id="remi_descrip" name="remi_descrip" class="summernote" name="name"></textarea>
+								<textarea id="caja_descrip" name="caja_descrip" class="summernote" name="name"></textarea>
 							</div>
 						</fieldset>
 					</div>

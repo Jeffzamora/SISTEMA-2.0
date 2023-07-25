@@ -431,7 +431,7 @@
         }
 
         // Función para buscar una remisión por el código de caja
-    public function buscar_remision_por_caja($remi_caja) {
+        public function buscar_remision_por_caja($remi_caja) {
         $conectar= parent::conexion();
         parent::set_names();
          // Preparar la consulta SQL
@@ -441,6 +441,6 @@
         $stmt->execute();
         $resultado = $stmt->fetchAll();
         return $resultado;
-    }
+        }
 
 }

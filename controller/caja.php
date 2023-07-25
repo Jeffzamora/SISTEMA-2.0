@@ -23,7 +23,7 @@
             } 
         /* TODO: Insertar nueva Remision */
         case "insert":   
-            $datos = $caja->insert_caja($caja_id,$usu_id,$sucu_id,$caja_num,$caja_exp,$caja_tipo,$caja_desde,$caja_hasta,$caja_descrip);
+            $datos = $caja->insert_caja($_POST["caja_id"],$_POST["usu_id"],$_POST["sucu_id"],$_POST["caja_num"],$_POST["caja_exp"],$_POST["caja_tipo"],$_POST["caja_desde"],$_POST["caja_hasta"],$_POST["caja_descrip"]);
             echo json_encode($datos);
             break;
     }

@@ -70,7 +70,7 @@ function guardaryeditar(){
 
         /* TODO: Guardar Remision */
         $.ajax({
-            url: "../../controller/caja.php?op=insert",
+            url: "../../controller/caja.php?op=insert_caja",
             type: "POST",
             data: formData,
             contentType: false,

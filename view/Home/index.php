@@ -39,7 +39,7 @@
 	                        </article>
 	                    </div>
 						<div class="col-sm-3">
-	                        <article class="statistic-box yellow">
+	                        <article class="statistic-box purple">
 	                            <div>
 	                                <div class="number" id="lbltotalprocesado"></div>
 	                                <div class="caption"><div>Total de Remisiones re-Abierta</div></div>

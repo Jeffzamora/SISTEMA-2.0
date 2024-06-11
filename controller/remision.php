@@ -12,48 +12,59 @@
     /*TODO: opciones del controlador Remision*/
     switch($_GET["op"]){
 
+        case "validar":
+             // Validar si el campo "remi_caja" ya existe en la base de datos
+            $caja_existe = $remision->buscar_remision_por_caja($_POST["remi_caja"]);
+            if (!empty($caja_existe)) {
+                // Generar la alerta indicando que el código de caja ya existe
+                $output["error"] = "El código de caja ya existe en la base de datos.";
+                echo json_encode($output);
+                break;
+            } 
         /* TODO: Insertar nueva Remision */
-        case "insert":
-            $datos=$remision->insert_remision($_POST["usu_id"],$_POST["sucu_id"],$_POST["remi_caja"],$_POST["remi_exp"],$_POST["remi_cancel"],$_POST["remi_desde"],$_POST["remi_hasta"],$_POST["remi_descrip"]);
+        case "insert":   
+            $datos = $remision->insert_remision($_POST["usu_id"], $_POST["sucu_id"], $_POST["remi_caja"], $_POST["remi_exp"], $_POST["remi_cancel"], $_POST["remi_desde"], $_POST["remi_hasta"], $_POST["remi_descrip"]);
+        
             /* TODO: Obtener el ID del ultimo registro insertado */
-            if (is_array($datos)==true and count($datos)>0){
-                foreach ($datos as $row){
+            if (is_array($datos) == true and count($datos) > 0) {
+                foreach ($datos as $row) {
                     $output["remi_id"] = $row["remi_id"];
-
+        
                     /* TODO: Validamos si vienen archivos desde la Vista */
-                    if (empty($_FILES['files']['name'])){
-
-                    }else{
+                    if (empty($_FILES['files']['name'])) {
+        
+                    } else {
                         /* TODO:Contar Cantidad de Archivos desde la Vista */
                         $countfiles = count($_FILES['files']['name']);
                         /* TODO: Generamos ruta segun el ID del ultimo registro insertado */
                         $ruta = "../public/document/".$output["remi_id"]."/";
                         $files_arr = array();
-
+        
                         /* TODO: Preguntamos si la ruta existe, en caso no exista la creamos */
                         if (!file_exists($ruta)) {
                             mkdir($ruta, 0777, true);
                         }
-
+        
                         /* TODO:Recorremos los archivos, y insertamos tantos detalles como documentos vinieron desde la vista */
                         for ($index = 0; $index < $countfiles; $index++) {
                             $doc1 = $_FILES['files']['tmp_name'][$index];
                             $destino = $ruta.$_FILES['files']['name'][$index];
-
+        
                             /* TODO: Insertamos Documentos */
-                            $documento->insert_documento( $output["remi_id"],$_FILES['files']['name'][$index]);
-
+                            $documento->insert_documento($output["remi_id"], $_FILES['files']['name'][$index]);
+        
                             /* TODO: Movemos los archivos hacia la carpeta creada */
-                            move_uploaded_file($doc1,$destino);
-
+                            move_uploaded_file($doc1, $destino);
+        
                             /* TODO: Establecer permisos de archivo a 777 */
-                           // chmod($destino, 0777);
+                            // chmod($destino, 0777);
                         }
                     }
                 }
             }
             echo json_encode($datos);
             break;
+        
 
         /* TODO: Actualizamos la Remision a cerrado y adicionamos una linea adicional */
         case "update":

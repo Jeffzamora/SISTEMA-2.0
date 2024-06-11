@@ -66,6 +66,18 @@
                                         </div>
                                     <?php
                                 break;
+
+                                case "3";
+                                ?>
+                                    <div class="alert alert-danger alert-icon alert-close alert-dismissible fade in" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                        <i class="font-icon font-icon-warning"></i>
+                                        Usuario Bloqueado. Contactar informatica.lc@logicsa.net
+                                    </div>
+                                <?php
+                            break;
                             }
                         }
                     ?>

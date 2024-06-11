@@ -9,9 +9,9 @@
             try {
                 // Cadena de conexión a la base de datos
                 $host = "localhost";
-                $dbname = "db_fama";
-                $user = "Hemco2022";
-                $password = "1r8YQuB676!";
+                $dbname = "db_demo";
+                $user = "jzamora";
+                $password = "Soporte1.";
                 $dsn = "mysql:host=$host;dbname=$dbname";
 
                 // Conexión a la base de datos
@@ -28,7 +28,7 @@
 
         public static function ruta() {
             // Ruta del proyecto
-            return "https://fama.logicsa.net/";
+            return "http://18.191.189.190/";
         }
     }
 

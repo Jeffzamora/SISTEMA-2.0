@@ -1,6 +1,6 @@
 $(document).ready(function() {
     /* TODO: Inicializar SummerNote */
-    $('#remi_descrip').summernote({
+    $('#caja_descrip').summernote({
         height: 100,
         lang: "es-ES",
         popover: {
@@ -28,19 +28,19 @@ $(document).ready(function() {
     });
 
     // Manejador de evento para el formulario
-    $("#ticket_form").on("submit", function (e) {
+    $("#caja_form").on("submit", function (e) {
         // Evitar el envío del formulario por defecto
         e.preventDefault();
 
         // Obtener el valor del campo "Caja Interna"
-        var remi_caja = $("#remi_caja").val();
+        var caja_num = $("#caja_num").val();
 
         // Realizar la validación del código de caja utilizando AJAX
         $.ajax({
             type: "POST",
-            url: "../../controller/remision.php?op=validar", // Reemplaza esto con la ruta correcta a tu archivo PHP para buscar la remisión por código de caja
+            url: "../../controller/caja.php?op=validar", // Reemplaza esto con la ruta correcta a tu archivo PHP para buscar la remisión por código de caja
             data: {
-                remi_caja: remi_caja
+                caja_num: caja_num
             },
             success: function (response) {
                 if (response === "1") {
@@ -63,19 +63,14 @@ $(document).ready(function() {
 
 function guardaryeditar(){
     /* TODO: Array del form ticket */
-    var formData = new FormData($("#ticket_form")[0]);
+    var formData = new FormData($("#caja_form")[0]);
     /* TODO: validamos si los campos tienen informacion antes de guardar */
-    if ($('#remi_descrip').summernote('isEmpty') ||  $('#remi_exp').val() == 0 || $('#remi_caja').val() == 0){
+    if ($('#caja_descrip').summernote('isEmpty') ||  $('#caja_tipo').val() == 0 || $('#caja_num').val() == 0){
         swal("Advertencia!", "Campos Vacios", "warning");
-    }else{
-        var totalfiles = $('#fileElem').val().length;
-        for (var i = 0; i < totalfiles; i++) {
-            formData.append("files[]", $('#fileElem')[0].files[i]);
-        }
 
         /* TODO: Guardar Remision */
         $.ajax({
-            url: "../../controller/remision.php?op=insert",
+            url: "../../controller/caja.php?op=insert",
             type: "POST",
             data: formData,
             contentType: false,
@@ -83,28 +78,23 @@ function guardaryeditar(){
             success: function(data){
                 console.log(data);
                 data = JSON.parse(data);
-                console.log(data[0].remi_id);
+                console.log(data[0].caja_id);
 
                 /* TODO: Envio de alerta Email de Remision Abierto */
-                $.post("../../controller/email.php?op=remision_abierto", {remi_id : data[0].remi_id}, function (data) {
+                $.post("../../controller/email.php?op=remision_abierto", {caja_id : data[0].caja_id}, function (data) {
 
                 });
 
                 /* TODO: Limpiar campos */
-                $('#remi_codigo').val('');
-                $('#remi_caja').val('');
-                $('#remi_exp').val('');
-                $('#remi_cancel').val('');
-                $('#remi_desde').val('');
-                $('#remi_hasta').val('');
-                $('#fileElem').val('');
-                $('#remi_descrip').summernote('reset');
+                $('#caja_num').val('');
+                $('#caja_exp').val('');
+                $('#caja_tipo').val('');
+                $('#caja_desde').val('');
+                $('#caja_hasta').val('');
+                $('#caja_descrip').summernote('reset');
                 /* TODO: Alerta de Confirmacion */
                 swal("Correcto!", "Registrado Correctamente", "success");
             }
         });
     }
 }
-
-
-init();

@@ -9,9 +9,9 @@
             try {
                 // Cadena de conexión a la base de datos
                 $host = "localhost";
-                $dbname = "db_fama";
-                $user = "Hemco2022";
-                $password = "1r8YQuB676!";
+                $dbname = "db";
+                $user = "root";
+                $password = "";
                 $dsn = "mysql:host=$host;dbname=$dbname";
 
                 // Conexión a la base de datos
